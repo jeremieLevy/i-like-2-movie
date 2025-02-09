@@ -1,0 +1,93 @@
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import MovieCard from '../components/MovieCard.vue'
+
+const apiUrl = "https://api.themoviedb.org/3/movie/popular"
+
+interface Movie {
+    id: number,
+    title: string,
+    poster_path: string,
+    overview: string,
+    vote_average: number
+}
+
+const popularMovies = ref(<Movie[]>([]))
+const isLoading = ref(true)
+const errorMessage = ref('')
+
+const options = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxOTYyNmNkNmJkMGYyYWUyOGU1Y2EwOTQzMDhhYmEwZiIsIm5iZiI6MTczODk0MTYwNC4zODQsInN1YiI6IjY3YTYyNGE0NzdiOGNlZDQ1NjY3MTBiOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.RhaReANvMsz9dZG5Um9V_HxWwz5QPtxJNKrLIluyW8s'
+  }
+};
+
+const getPopularMovies = async () => {
+    try {
+        const response = await fetch(apiUrl, options)
+        if (!response.ok) throw Error("Erreur during movies loading") 
+
+        const data = await response.json()
+        
+        popularMovies.value = data.results
+        console.log(popularMovies);
+        
+    } catch (error) {
+        console.log("get request error")
+        errorMessage.value = (error as Error).message
+    } finally {
+        isLoading.value = false
+    }
+}
+
+onMounted(() => getPopularMovies())
+
+</script>
+
+<template>
+    <header class="bg-neutral-800 fixed top-0 z-50 border-b-1 w-full">
+        <nav class="container mx-auto flex justify-between items-center p-6">
+            <a href="#" class="text-4xl">I like to <span class="font-bold">m🎥vie</span></a>
+            <ul class="flex justify-center space-x-6">
+                <li><a href="" class="">Trending</a></li>
+                <li><a href="" class="">Movies</a></li>
+                <li><a href="" class="">Actors</a></li>
+                <li><a href="" class="bg-white text-neutral-800 font-bold px-2 py-1 rounded-4xl">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Header -->
+
+    <div class="relative h-150 text-white overflow-hidden mt-10">
+        <div class="absolute inset-0">
+            <img src="/src/assets/Interstellar.jpg"
+                alt="Background Image" class="object-cover object-center w-full h-150" />
+            <div class="absolute inset-0 bg-black opacity-50"></div>
+        </div>
+        <div class="relative z-10 flex flex-col justify-center items-center h-150 text-center">
+            <input type="text" placeholder="Search movie by title" class="border font-bold text-3xl rounded-4xl p-4">
+        </div>
+    </div>
+
+    <!-- Popular Movies List -->
+
+    <div class="movie-list container mx-auto p-4 md:w-165 lg:w-220 xl:w-270">
+        <p v-if="isLoading">Chargement...</p>
+        <p v-else-if="errorMessage" class="text-red-500">{{ errorMessage }}</p>
+        <div v-else class="grid gap-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            <MovieCard v-for="movie in popularMovies.slice(0,8)" 
+            :key="movie.id"
+            :poster="movie.poster_path"
+            :title="movie.title"
+            :overview="movie.overview"
+            />
+        </div>
+    </div>
+    
+</template>
+
+<style scoped>
+</style>
