@@ -8,7 +8,6 @@ const routes = [
     { path: '/movie/:id', component: MovieDetails, props: true },
     // { path: '/:pathMatch(.*)*', component: NotFound }
 
-
 ]
 
 const router = createRouter({
