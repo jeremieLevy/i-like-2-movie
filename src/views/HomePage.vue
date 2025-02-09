@@ -83,6 +83,7 @@ onMounted(() => getPopularMovies())
             :poster="movie.poster_path"
             :title="movie.title"
             :overview="movie.overview"
+            class="cursor-pointer"
             />
         </div>
     </div>
