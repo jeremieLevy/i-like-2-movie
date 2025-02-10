@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
 import MovieCard from '../components/MovieCard.vue'
-
-const route = useRoute()
 
 const apiUrl = "https://api.themoviedb.org/3/movie/popular"
 
@@ -35,10 +32,8 @@ const getPopularMovies = async () => {
         const data = await response.json()
 
         popularMovies.value = data.results
-        console.log(popularMovies);
 
     } catch (error) {
-        console.log("get request error")
         errorMessage.value = "Failed to fetch movies"
     } finally {
         isLoading.value = false
@@ -84,7 +79,7 @@ onMounted(() => getPopularMovies())
             <router-link 
                 v-for="movie in popularMovies.slice(0, 8)" 
                 :key="movie.id" 
-                :to="`/movie/${movie.id}`"
+                :to="{ name: 'movie-details', params: { id: movie.id }}"
                 class="cursor-pointer transform transition duration-200 hover:scale-105">
                 <MovieCard 
                     :poster="movie.poster_path" 
