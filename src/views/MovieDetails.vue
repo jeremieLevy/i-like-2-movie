@@ -23,7 +23,7 @@ const getMovieDetails = async () => {
         movie.value = data
         
     } catch (error) {
-        
+
     }
 }
 
@@ -34,7 +34,7 @@ onMounted(() => getMovieDetails())
 <template>
 
     <div class="container mx-auto mt-2">
-        <router-link :to="'/'">
+        <router-link :to="{ name: 'home' }">
             <button>Back to Home</button>
         </router-link>
     </div>
