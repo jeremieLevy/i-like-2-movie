@@ -10,6 +10,7 @@ interface Movie {
     poster_path: string,
     overview: string,
     vote_average: number
+    popularity: number
 }
 
 const popularMovies = ref(<Movie[]>([]))
@@ -39,6 +40,10 @@ const getPopularMovies = async () => {
         isLoading.value = false
     }
 }
+
+// Sort by popularity
+const mostPopularMovies = () => { /* ToDo */ }
+
 
 onMounted(() => getPopularMovies())
 

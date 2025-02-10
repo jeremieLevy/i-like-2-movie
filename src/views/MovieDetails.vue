@@ -68,9 +68,10 @@ const getMovieCredits = async () => {
 
 // }
 
-onMounted(() => getMovieDetails())
-onMounted(() => getMovieCredits()) // Voir comment DRY
-// onMounted(() => getMovieImages())
+onMounted(() => {
+    getMovieDetails()
+    getMovieCredits()
+})
 
 
 </script>
@@ -89,7 +90,10 @@ onMounted(() => getMovieCredits()) // Voir comment DRY
             <div v-if="actors" class="mt-3">
                 <ul class="inline-block" v-for="actor in actors.cast.slice(0, 6)">
                     <li>
-                        <img class="w-15 h-15 rounded-full object-cover mx-2" :src="`https://image.tmdb.org/t/p/w500${actor.profile_path}`" alt="">
+                        <img 
+                        class="w-15 h-15 rounded-full object-cover mx-2" 
+                        :src="`https://image.tmdb.org/t/p/w500${actor.profile_path}`" 
+                        :alt="`${actor.original_name}`">
                     </li>
                 </ul>
             </div>
