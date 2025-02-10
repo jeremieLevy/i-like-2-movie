@@ -6,7 +6,7 @@ const routes = [
     { 
         path: '/', 
         name: 'home',
-        component: HomePage ,
+        component: HomePage
     },
     { 
         path: '/movie/:id', 
@@ -19,9 +19,5 @@ const router = createRouter({
     history: createWebHistory(),
     routes
 })
-
-console.log(routes);
-
-
 
 export default router
