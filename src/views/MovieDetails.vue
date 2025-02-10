@@ -4,9 +4,15 @@ import { useRoute } from "vue-router";
 
 const route = useRoute()
 
-const apiUrl = `https://api.themoviedb.org/3/movie/${route.params.id}&language=en-US`
+const movieUrl = `https://api.themoviedb.org/3/movie/${route.params.id}&language=en-US`
+const creditsUrl = `https://api.themoviedb.org/3/movie/${route.params.id}/credits?language=en-US`
+// const imagesUrl = `https://api.themoviedb.org/3/movie/${route.params.id}/images`
 
 const movie = ref()
+const actors = ref()
+// const images = ref()
+
+
 const errorMessage = ref('')
 
 const options = {
@@ -19,40 +25,75 @@ const options = {
 
 const getMovieDetails = async () => {
     try {
-        const response = await fetch(apiUrl, options)
+        const response = await fetch(movieUrl, options)
         if (!response.ok) throw Error("Error during fetching details")
-        
+
         const data = await response.json()
         movie.value = data
 
-        console.log(movie.value);
-           
     } catch (error) {
         errorMessage.value = 'Failed to fetch movie'
     }
 }
 
-console.log(movie.value);
+const getMovieCredits = async () => {
+
+    try {
+        const response = await fetch(creditsUrl, options)
+        if (!response.ok) throw Error('Error during credits loading')
+
+        const data = await response.json()
+        actors.value = data
+
+        console.log(actors.value);
+
+    } catch (error) {
+        errorMessage.value = 'Failed to fetch credits'
+    }
+}
+
+// const getMovieImages = async () => {
+
+//     try {
+//         const response = await fetch(imagesUrl, options)
+//         if (!response.ok) throw Error("Error during images loading")
+
+//         const data = response.json()
+//         images.value = data
+//         console.log(images.value);
+
+//     } catch (error) {
+//         errorMessage.value = 'Failed to fetch images'
+//     }
+
+// }
 
 onMounted(() => getMovieDetails())
+onMounted(() => getMovieCredits()) // Voir comment DRY
+// onMounted(() => getMovieImages())
+
 
 </script>
 
 
 <template>
 
-    <!-- <div class="container mx-auto my-2">
-        <router-link :to="{ name: 'home' }">
-            <button>< Back to Home</button>
-        </router-link>
-    </div> -->
     <div v-if="movie" class="container mx-auto flex mt-30">
         <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" :alt="`${movie.original_title}`">
         <div class="flex flex-col px-8">
             <h1>{{ movie.original_title }}</h1>
             <hr class="my-3">
-            <h3 class="font-bold">Synopsis</h3>
-            <p class="text-justify">{{ movie.overview }}</p>
+            <h3 class="font-bold text-purple-300">Synopsis</h3>
+            <p class="text-justify mt-3">{{ movie.overview }}</p>
+            <h3 class="font-bold mt-8 text-purple-300">Casting</h3>
+            <div v-if="actors" class="mt-3">
+                <ul class="inline-block" v-for="actor in actors.cast.slice(0, 6)">
+                    <li>
+                        <img class="w-15 h-15 rounded-full object-cover mx-2" :src="`https://image.tmdb.org/t/p/w500${actor.profile_path}`" alt="">
+                    </li>
+                </ul>
+            </div>
+            <div v-else>Chargement...</div>
         </div>
     </div>
     <div v-else>Chargement...</div>
