@@ -41,12 +41,12 @@ onMounted(() => getMovieDetails())
 
 <template>
 
-    <div class="container mx-auto my-2">
+    <!-- <div class="container mx-auto my-2">
         <router-link :to="{ name: 'home' }">
             <button>< Back to Home</button>
         </router-link>
-    </div>
-    <div v-if="movie" class="container mx-auto flex">
+    </div> -->
+    <div v-if="movie" class="container mx-auto flex mt-30">
         <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" :alt="`${movie.original_title}`">
         <div class="flex flex-col px-8">
             <h1>{{ movie.original_title }}</h1>
