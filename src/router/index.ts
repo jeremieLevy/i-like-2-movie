@@ -4,8 +4,16 @@ import MovieDetails from '../views/MovieDetails.vue'
 // import NotFound from '../views/NotFound.vue'
 
 const routes = [
-    { path: '/', component: HomePage },
-    { path: '/movie/:id', component: MovieDetails, props: true },
+    { 
+        path: '/', 
+        name: 'home',
+        component: HomePage ,
+    },
+    { 
+        path: '/movie/:id', 
+        name: 'movie-details',
+        component: MovieDetails 
+    },
     // { path: '/:pathMatch(.*)*', component: NotFound }
 
 ]

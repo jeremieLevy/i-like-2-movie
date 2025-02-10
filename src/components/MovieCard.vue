@@ -12,7 +12,7 @@ const props = defineProps<{
 
 <template>
 
-    <div class="w-[200px] rounded-2xl overflow-hidden shadow-[0_5px_20px_rgba(0,0,0,0.25)] shadow-indigo-500/50">
+    <div class="h-full rounded-2xl overflow-hidden shadow-[0_5px_20px_rgba(0,0,0,0.25)] shadow-indigo-500/50">
         <img :src="`https://image.tmdb.org/t/p/w500${props.poster}`" :alt="props.title">
         <div class="px-6 py-4">
             <div class="font-bold leading-none mb-2">
