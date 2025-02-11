@@ -37,12 +37,14 @@ onMounted(() => getActorInfos())
 </script>
 
 <template>
-
-    <!-- <p class="mt-30">Hello Actor</p> -->
-     <div class="container mx-auto">
-        <div v-if="actorInfos">
-            <img :src="`https://image.tmdb.org/t/p/w500${actorInfos.profile_path}`" alt="">
-        </div>
+    
+     <div v-if="actorInfos" class="container mx-auto flex items-start mt-32">
+        <img :src="`https://image.tmdb.org/t/p/w500${actorInfos.profile_path}`" alt="" class="w-72 h-72 object-cover rounded-2xl mr-10 ml-5">
+        <div class="flex-col ml-10 ">
+            <h2 class="text-5xl font-semibold">{{ actorInfos.name }}</h2>
+            <p class="text-justify mt-8 line-clamp-5">{{ actorInfos.biography }}</p>
+            <!-- <button @click="showFullText" class="mt-5 border px-2 rounded-full cursor-pointer">Show More ↓</button> -->
+        </div>  
      </div>
 
 </template>
