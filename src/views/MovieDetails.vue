@@ -12,7 +12,6 @@ const movie = ref()
 const actors = ref()
 // const images = ref()
 
-
 const errorMessage = ref('')
 
 const options = {
@@ -87,14 +86,16 @@ onMounted(() => {
             <h3 class="font-bold text-purple-300">Synopsis</h3>
             <p class="text-justify mt-3">{{ movie.overview }}</p>
             <h3 class="font-bold mt-8 text-purple-300">Casting</h3>
-            <div v-if="actors" class="mt-3">
-                <ul class="inline-block" v-for="actor in actors.cast.slice(0, 6)">
-                    <li>
-                        <img 
-                        class="w-15 h-15 rounded-full object-cover mx-2" 
-                        :src="`https://image.tmdb.org/t/p/w500${actor.profile_path}`" 
-                        :alt="`${actor.original_name}`">
-                    </li>
+            <div v-if="actors" class="mt-3 cursor-pointer">
+                <ul class="inline-block" v-for="actor in actors.cast.slice(0, 6)" :key="actor.id">
+                    <router-link :to="{ name: 'actor-details', params: { id: actor.id }}">
+                         <li>
+                            <img 
+                            class="w-15 h-15 rounded-full object-cover mx-2" 
+                            :src="`https://image.tmdb.org/t/p/w500${actor.profile_path}`" 
+                            :alt="`${actor.original_name}`">
+                        </li>
+                    </router-link>
                 </ul>
             </div>
             <div v-else>Chargement...</div>

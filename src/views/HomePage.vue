@@ -42,7 +42,7 @@ const getPopularMovies = async () => {
 }
 
 // Sort by popularity
-const mostPopularMovies = () => { /* ToDo */ }
+// const mostPopularMovies = () => { /* ToDo */ }
 
 
 onMounted(() => getPopularMovies())
