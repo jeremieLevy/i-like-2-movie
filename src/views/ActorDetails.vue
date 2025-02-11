@@ -26,7 +26,7 @@ const getActorInfos = async () => {
         const data = await response.json()
         actorInfos.value = data
         console.log(actorInfos.value);
-
+    
     } catch (error) {
         errorMessage.value = 'Failed to fetch actor infos'
     }
@@ -37,7 +37,7 @@ onMounted(() => getActorInfos())
 </script>
 
 <template>
-    
+
      <div v-if="actorInfos" class="container mx-auto flex items-start mt-32">
         <img :src="`https://image.tmdb.org/t/p/w500${actorInfos.profile_path}`" alt="" class="w-72 h-72 object-cover rounded-2xl mr-10 ml-5">
         <div class="flex-col ml-10 ">
