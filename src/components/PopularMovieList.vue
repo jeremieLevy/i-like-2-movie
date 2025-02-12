@@ -3,7 +3,6 @@ import MovieCard from './MovieCard.vue'
 import { useQuery } from "@tanstack/vue-query"
 import { getPopularMovies } from '../services/api'
 
-
 const { data: popularMovies, isLoading, error } = useQuery({
     queryKey: ['popularMovies'],
     queryFn: getPopularMovies,
