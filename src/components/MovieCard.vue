@@ -3,7 +3,7 @@
 
 const props = defineProps<{
     poster: string,
-    title: string, // Différence entre String et string ?
+    title: string, 
     overview: string,
     rateLevel: number
 }>()

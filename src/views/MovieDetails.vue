@@ -28,44 +28,6 @@ const { data: actors, isLoading: isLoadingCredits, error: errorCredits } = useQu
     gcTime: 100_000
 })
 
-// const movie = ref()
-// const actors = ref()
-
-// const getMovieDetails = async () => {
-//     try {
-//         const response = await fetch(movieUrl, options)
-//         if (!response.ok) throw Error("Error during fetching details")
-
-//         const data = await response.json()
-//         movie.value = data
-
-//     } catch (error) {
-//         errorMessage.value = 'Failed to fetch movie'
-//     }
-// }
-
-// const getMovieCredits = async () => {
-
-//     try {
-//         const response = await fetch(creditsUrl, options)
-//         if (!response.ok) throw Error('Error during credits loading')
-
-//         const data = await response.json()
-//         actors.value = data
-
-//         console.log(actors.value);
-
-//     } catch (error) {
-//         errorMessage.value = 'Failed to fetch credits'
-//     }
-// }
-
-
-// onMounted(() => {
-//     getMovieDetails()
-//     getMovieCredits()
-// })
-
 </script>
 
 
