@@ -2,10 +2,10 @@
 // import { ref } from 'vue'
 
 const props = defineProps<{
-    poster: String,
+    poster: string,
     title: string, // Différence entre String et string ?
-    overview: String,
-    rateLevel: Number
+    overview: string,
+    rateLevel: number
 }>()
 
 </script>
