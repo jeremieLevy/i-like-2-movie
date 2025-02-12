@@ -1,23 +1,5 @@
 <script setup lang="ts">
-import MovieCard from '../components/MovieCard.vue'
-import { useQuery } from "@tanstack/vue-query"
-import { getPopularMovies } from '../services/api'
-
-interface Movie {
-    id: number,
-    title: string,
-    poster_path: string,
-    overview: string,
-    vote_average: number
-    popularity: number
-}
-
-const { data: popularMovies, isLoading, error } = useQuery({
-    queryKey: ['popularMovies'],
-    queryFn: getPopularMovies,
-    staleTime: 60_000,
-    gcTime: 100_000,
-})
+import PopularMovieList from '../components/PopularsMovieList.vue'
 
 </script>
 
@@ -36,26 +18,8 @@ const { data: popularMovies, isLoading, error } = useQuery({
         </div>
     </div>
 
-    <!-- Popular Movies List -->
+    <PopularMovieList />
 
-    <div class="movie-list container mx-auto p-4 md:w-165 lg:w-220 xl:w-270">
-        <p v-if="isLoading">Chargement...</p>
-        <p v-else-if="error" class="text-red-500 text-center mt-5">Error : {{ error }}</p>
-        <div v-else class="grid gap-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-            <router-link 
-                v-for="movie in popularMovies?.slice(0, 8)" 
-                :key="movie.id" 
-                :to="{ name: 'movie-details', params: { id: movie.id }}"
-                class="cursor-pointer transform transition duration-200 hover:scale-105">
-                <MovieCard 
-                    :poster="movie.poster_path" 
-                    :title="movie.title" 
-                    :overview="movie.overview"
-                    :rate-level="movie.vote_average" 
-                />
-            </router-link>
-        </div>
-    </div>
 
 </template>
 
