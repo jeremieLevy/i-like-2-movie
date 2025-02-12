@@ -1,17 +1,21 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useRoute } from "vue-router";
 import { useQuery } from "@tanstack/vue-query"
+
 import { getMovieDetails } from "../services/api";
+
+import PopularMovieList from "../components/PopularMovieList.vue";
 
 const route = useRoute()
 
-const movieId = route.params.id as string
+const movieId = computed(() => route.params.id as string)
 // const movieUrl = `https://api.themoviedb.org/3/movie/${route.params.id}&language=en-US`
 
 
 const { data: movie, isLoading, error } = useQuery({
     queryKey: ['movie', movieId],
-    queryFn: () => getMovieDetails(movieId),
+    queryFn: () => getMovieDetails(movieId.value),
     staleTime: 60_000,
     gcTime: 100_000
 })
@@ -83,6 +87,8 @@ const { data: movie, isLoading, error } = useQuery({
         </div>
     </div>
     <div v-else>Chargement...</div>
+    <PopularMovieList />
+
 
 </template>
 

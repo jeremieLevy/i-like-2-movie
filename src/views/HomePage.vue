@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import PopularMovieList from '../components/PopularsMovieList.vue'
+import PopularMovieList from '../components/PopularMovieList.vue'
 
 </script>
 
