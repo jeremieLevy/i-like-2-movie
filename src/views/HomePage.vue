@@ -12,20 +12,6 @@ interface Movie {
     popularity: number
 }
 
-// const options = {
-//     method: 'GET',
-    // headers: {
-    //     accept: 'application/json',
-    //     Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxOTYyNmNkNmJkMGYyYWUyOGU1Y2EwOTQzMDhhYmEwZiIsIm5iZiI6MTczODk0MTYwNC4zODQsInN1YiI6IjY3YTYyNGE0NzdiOGNlZDQ1NjY3MTBiOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.RhaReANvMsz9dZG5Um9V_HxWwz5QPtxJNKrLIluyW8s'
-    // }
-// };
-
-// const getPopularMovies = async () => {
-//     const response = await fetch(apiUrl, options)
-//     if (!response.ok) throw Error("Erreur during movies loading")
-//     return response.json() as Promise<{ results: Movie[] }>
-// }
-
 const { data: popularMovies, isLoading, error } = useQuery({
     queryKey: ['popularMovies'],
     queryFn: getPopularMovies,

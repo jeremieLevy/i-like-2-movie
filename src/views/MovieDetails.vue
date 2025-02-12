@@ -1,77 +1,59 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
+import { useQuery } from "@tanstack/vue-query"
+import { getMovieDetails } from "../services/api";
 
 const route = useRoute()
+const movieId = route.params.id as string
 
-const movieUrl = `https://api.themoviedb.org/3/movie/${route.params.id}&language=en-US`
-const creditsUrl = `https://api.themoviedb.org/3/movie/${route.params.id}/credits?language=en-US`
-// const imagesUrl = `https://api.themoviedb.org/3/movie/${route.params.id}/images`
+// const movieUrl = `https://api.themoviedb.org/3/movie/${route.params.id}&language=en-US`
+// const creditsUrl = `https://api.themoviedb.org/3/movie/${route.params.id}/credits?language=en-US`
 
-const movie = ref()
-const actors = ref()
-// const images = ref()
 
-const errorMessage = ref('')
-
-const options = {
-    method: 'GET',
-    headers: {
-        accept: 'application/json',
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxOTYyNmNkNmJkMGYyYWUyOGU1Y2EwOTQzMDhhYmEwZiIsIm5iZiI6MTczODk0MTYwNC4zODQsInN1YiI6IjY3YTYyNGE0NzdiOGNlZDQ1NjY3MTBiOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.RhaReANvMsz9dZG5Um9V_HxWwz5QPtxJNKrLIluyW8s'
-    }
-}
-
-const getMovieDetails = async () => {
-    try {
-        const response = await fetch(movieUrl, options)
-        if (!response.ok) throw Error("Error during fetching details")
-
-        const data = await response.json()
-        movie.value = data
-
-    } catch (error) {
-        errorMessage.value = 'Failed to fetch movie'
-    }
-}
-
-const getMovieCredits = async () => {
-
-    try {
-        const response = await fetch(creditsUrl, options)
-        if (!response.ok) throw Error('Error during credits loading')
-
-        const data = await response.json()
-        actors.value = data
-
-        console.log(actors.value);
-
-    } catch (error) {
-        errorMessage.value = 'Failed to fetch credits'
-    }
-}
-
-// const getMovieImages = async () => {
-
-//     try {
-//         const response = await fetch(imagesUrl, options)
-//         if (!response.ok) throw Error("Error during images loading")
-
-//         const data = response.json()
-//         images.value = data
-//         console.log(images.value);
-
-//     } catch (error) {
-//         errorMessage.value = 'Failed to fetch images'
-//     }
-
-// }
-
-onMounted(() => {
-    getMovieDetails()
-    getMovieCredits()
+const { data: movie, isLoading, error } = useQuery({
+    queryKey: ['movie', movieId],
+    queryFn: () => getMovieDetails(movieId),
+    staleTime: 60_000,
+    gcTime: 100_000
 })
 
+// const movie = ref()
+// const actors = ref()
+
+// const getMovieDetails = async () => {
+//     try {
+//         const response = await fetch(movieUrl, options)
+//         if (!response.ok) throw Error("Error during fetching details")
+
+//         const data = await response.json()
+//         movie.value = data
+
+//     } catch (error) {
+//         errorMessage.value = 'Failed to fetch movie'
+//     }
+// }
+
+// const getMovieCredits = async () => {
+
+//     try {
+//         const response = await fetch(creditsUrl, options)
+//         if (!response.ok) throw Error('Error during credits loading')
+
+//         const data = await response.json()
+//         actors.value = data
+
+//         console.log(actors.value);
+
+//     } catch (error) {
+//         errorMessage.value = 'Failed to fetch credits'
+//     }
+// }
+
+
+// onMounted(() => {
+//     getMovieDetails()
+//     getMovieCredits()
+// })
 
 </script>
 
