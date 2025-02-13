@@ -1,33 +1,42 @@
 import axios from 'axios'
-
-const URL = "https://api.themoviedb.org/3"
+import type { Movie } from '../types/response/tmdb-api/PopularMovies.type'
+import type { MovieDetails } from '../types/response/tmdb-api/MovieDetails.type'
+import type { Actor } from '../types/response/tmdb-api/Actor.type'
+import type { MovieCredits } from '../types/response/tmdb-api/MovieCredits.type'
 
 const api = axios.create({ // like "const options" here
-    baseURL: URL,
+    baseURL:  "https://api.themoviedb.org/3",
     headers: {
         accept: 'application/json',
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxOTYyNmNkNmJkMGYyYWUyOGU1Y2EwOTQzMDhhYmEwZiIsIm5iZiI6MTczODk0MTYwNC4zODQsInN1YiI6IjY3YTYyNGE0NzdiOGNlZDQ1NjY3MTBiOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.RhaReANvMsz9dZG5Um9V_HxWwz5QPtxJNKrLIluyW8s'
+        Authorization: `Bearer ${import.meta.env.VITE_TMDB_BEARER_TOKEN}`
     },
     params: { language: 'US' }
 })
 
 // Fetch popular movies list
 
-export const getPopularMovies = async () => {
+export const getPopularMovies = async (): Promise<Movie[]> => {
     const response = await api.get("/movie/popular")
     return response.data.results
 }
 
 // Fetch movie details
 
-export const getMovieDetails = async (id: string) => {
+export const getMovieDetails = async (id: string): Promise<MovieDetails> => {
     const response = await api.get(`/movie/${id}`)
-    return response.data
+    return response.data 
 }
 
 // Fetch movie credits
 
-export const getMovieCredits = async (id: string) => {
+export const getMovieCredits = async (id: string): Promise<MovieCredits> => {
     const response = await api.get(`/movie/${id}/credits`)
+    return response.data
+}
+
+// Fetch actor details
+
+export const getActorInfos = async (id: string): Promise<Actor> => {
+    const response = await api.get(`/person/${id}`)
     return response.data
 }
