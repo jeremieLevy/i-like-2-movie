@@ -11,12 +11,10 @@ const isLoading = ref(false)
 const handleSearch = async () => {
     if (!searchQuery.value.trim()) {
         searchResults.value = []
-        return
     }
 
     isLoading.value = true
     searchResults.value = await searchMovies(searchQuery.value)
-    
     isLoading.value = false
 }
 
@@ -53,7 +51,7 @@ const handleSearch = async () => {
                         </li>
                     </ul>
                 </div>
-                <div v-else-if="searchQuery && !isLoading" class="text-center mt-2 text-gray-500">
+                <div v-else-if="searchQuery && !isLoading" class="text-center mt-2 text-gray-100">
                     Sorry, there's no movie
                 </div>
             </div>

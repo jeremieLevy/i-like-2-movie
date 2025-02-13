@@ -1,5 +1,3 @@
-import type { MovieDetails } from "./MovieDetails.type";
-
 export type MovieSummary = {
     id: number
     title: string

@@ -48,7 +48,11 @@ export const searchMovies = async (query: string): Promise<MovieSummary[]> => {
     if (!query) return []
 
     const response = await api.get('/search/movie', {
-        params: { query }
+        params: { 
+            query,
+            include_adult: false,
+            page: 1
+         }
     })
 
     return response.data.results
