@@ -3,6 +3,7 @@ import type { Movie } from '../types/response/tmdb-api/PopularMovies.type'
 import type { MovieDetails } from '../types/response/tmdb-api/MovieDetails.type'
 import type { Actor } from '../types/response/tmdb-api/Actor.type'
 import type { MovieCredits } from '../types/response/tmdb-api/MovieCredits.type'
+import type { MovieSummary } from '../types/response/tmdb-api/MovieSummary.type'
 
 const api = axios.create({ // like "const options" here
     baseURL:  "https://api.themoviedb.org/3",
@@ -39,4 +40,20 @@ export const getMovieCredits = async (id: string): Promise<MovieCredits> => {
 export const getActorInfos = async (id: string): Promise<Actor> => {
     const response = await api.get(`/person/${id}`)
     return response.data
+}
+
+// Search for movie
+
+export const searchMovies = async (query: string): Promise<MovieSummary[]> => {
+    if (!query) return []
+
+    const response = await api.get('/search/movie', {
+        params: { 
+            query,
+            include_adult: false,
+            page: 1
+         }
+    })
+
+    return response.data.results
 }
