@@ -18,7 +18,7 @@ import PopularMovieList from '../components/PopularMovieList.vue'
         </div>
     </div>
 
-    <PopularMovieList />
+    <PopularMovieList label="Currently top rated movies"/>
 
 
 </template>

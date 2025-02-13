@@ -21,8 +21,8 @@ const { data: movie, isLoading: isLoadingMovie , error: errorMovie } = useQuery(
     gcTime: 100_000
 })
 
-const { data: actors, isLoading: isLoadingCredits, error: errorCredits } = useQuery({
-    queryKey: ['actor', movieId],
+const { data: credits, isLoading: isLoadingCredits, error: errorCredits } = useQuery({
+    queryKey: ['credits', movieId],
     queryFn: () => getMovieCredits(movieId.value),
     staleTime: 60_000,
     gcTime: 100_000
@@ -40,15 +40,15 @@ const { data: actors, isLoading: isLoadingCredits, error: errorCredits } = useQu
             <hr class="my-3">
             <h3 class="font-bold text-purple-300">Synopsis</h3>
             <p class="text-justify mt-3">{{ movie.overview }}</p>
-            <h3 class="font-bold mt-8 text-purple-300">Casting</h3>
-            <div v-if="actors" class="mt-3">
-                <ul class="inline-block" v-for="actor in actors.cast.slice(0, 6)" :key="actor.id">
+            <h3 class="font-bold mt-8 texit-purple-300">Casting</h3>
+            <div v-if="credits" class="mt-3">
+                <ul class="inline-block" v-for="actor in credits.cast.slice(0,6)" :key="actor.id">
                     <router-link :to="{ name: 'actor-details', params: { id: actor.id }}">
                          <li >
                             <img 
                             class="w-15 h-15 rounded-full object-cover mx-2 brightness-90 hover:brightness-110" 
                             :src="`https://image.tmdb.org/t/p/w500${actor.profile_path}`" 
-                            :alt="`${actor.original_name}`">
+                            :alt="`${actor.name}`">
                         </li>
                     </router-link>
                 </ul>
@@ -57,7 +57,7 @@ const { data: actors, isLoading: isLoadingCredits, error: errorCredits } = useQu
         </div>
     </div>
     <div v-else>Chargement...</div>
-    <PopularMovieList class="mt-10"/>
+    <PopularMovieList label="Similar movies" class="mt-10"/>
 
 
 </template>
