@@ -1,22 +1,19 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { searchMovies } from '../services/api';
-
-import type { MovieSummary } from '../types/response/tmdb-api/MovieSummary.type';
+import { useQuery } from "@tanstack/vue-query"
+import { refDebounced } from '@vueuse/core'
 
 const searchQuery = ref('')
-const searchResults = ref(<MovieSummary[]>([]))
-const isLoading = ref(false)
+const searchResults = computed(() => data.value || [] )
+const debouncedQuery = refDebounced(searchQuery, 500)
 
-const handleSearch = async () => {
-    if (!searchQuery.value.trim()) {
-        searchResults.value = []
-    }
-
-    isLoading.value = true
-    searchResults.value = await searchMovies(searchQuery.value)
-    isLoading.value = false
-}
+const { data, isLoading: isLoadingResults, error: errorResults } = useQuery({
+    queryKey: ['searchResults', debouncedQuery],
+    queryFn: () => searchMovies(debouncedQuery.value),
+    staleTime: 60_000,
+    gcTime: 500_000
+})
 
 </script>
 
@@ -31,11 +28,11 @@ const handleSearch = async () => {
         <div class="relative z-10 flex flex-col justify-center items-center h-150 text-center">
 
             <div class="relative w-160">
-                <input v-model="searchQuery" @input="handleSearch" 
+                <input v-model="searchQuery" 
                     type="text" placeholder="Search movie"
                     class="w-full border font-bold text-2xl rounded-4xl p-4 placeholder: text-center">
                 
-                <div v-if="searchResults.length"
+                <div v-if="searchResults?.length"
                     class="absolute left-0 w-full mt-2 bg-gray-800 text-black shadow-xl rounded-2xl max-h-120 overflow-y-auto">
                     <ul>
                         <li v-for="result in searchResults" :key="result.id" class="p-4 border-b border-gray-500 hover:bg-gray-600">
@@ -51,7 +48,7 @@ const handleSearch = async () => {
                         </li>
                     </ul>
                 </div>
-                <div v-else-if="searchQuery && !isLoading" class="text-center mt-2 text-gray-100">
+                <div v-else-if="debouncedQuery && !isLoadingResults" class="text-center mt-2 text-gray-100">
                     Sorry, there's no movie
                 </div>
             </div>
