@@ -16,7 +16,8 @@ console.log(favoritesStore.favorites);
                 class="p-4 border-b border-gray-500 hover:bg-gray-600">
                 <router-link :to="`/movie/${movie.id}`" class="text-blue-500">
                     <div class="flex items-center">
-                        <img :src="`https://image.tmdb.org/t/p/w200${movie.poster_path}`" 
+                        <img 
+                        :src="`https://image.tmdb.org/t/p/w200${movie.poster_path}`" 
                         :alt="movie.title" class="w-20 rounded-2xl object-cover">
                         <h2 class="text-xl font-bold ml-10">{{ movie.title }}</h2>
                     </div>
