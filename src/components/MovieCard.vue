@@ -45,14 +45,18 @@ const toggleFavorites = () => {
             </div>
             <!-- <p class="text-gray text-md text-justify line-clamp-5  ">{{ props.overview }}</p> -->
         </div>
-        <button class="absolute top-5 right-4 rounded-full p-2 shadow" @click="toggleFavorites()">
+        <button class="absolute top-1 right-0.5 rounded-full p-2" @click="toggleFavorites()">
             <component 
                 :is="favoritesStore.isFavorite(id) ? HeartIconSolid : HeartIconOutline"
-                class="size-7 text-purple-600 hover:text-white" 
+                class="size-7 text-purple-500 hover:text-white drop-shadow-lg" 
             />
         </button>
     </div>
 
 </template>
 
-<style scoped></style>
+<style scoped>
+.drop-shadow-lg {
+    --tw-drop-shadow: drop-shadow(0 10px 8px rgb(221, 48, 255));
+}
+</style>

@@ -2,11 +2,14 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useQuery } from '@tanstack/vue-query'
+// import { useFavorites } from '../store/favorites';
 
 import { getMovieDetails } from '../services/api'
 import { getMovieCredits } from '../services/api'
 
 import PopularMovieList from "../components/PopularMovieList.vue";
+
+// const favoritesStore = useFavorites()
 
 const route = useRoute()
 
@@ -36,7 +39,9 @@ const { data: credits, isLoading: isLoadingCredits, error: errorCredits } = useQ
     <div v-else-if="movie" class="container mx-auto flex mt-30">
         <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" :alt="`${movie.original_title}`" class="w-72 h-full rounded-2xl">
         <div class="flex flex-col px-8">
-            <h1>{{ movie.title }}</h1>
+            <div class="flex items-start">
+                <h1>{{ movie.title }}</h1>
+            </div>
             <hr class="my-3">
             <h3 class="font-bold text-purple-300">Synopsis</h3>
             <p class="text-justify mt-3">{{ movie.overview }}</p>

@@ -8,9 +8,11 @@
             <router-link :to="{ name: 'home' }">
                 <span class="text-4xl">I like to <span class="font-bold">m🎥vie</span></span>
             </router-link>
-            <ul class="flex justify-center space-x-6">
+            <ul class="flex justify-center space-x-6 font-bold">
                 <li><a href="" class="">Trending</a></li>
-                <li><a href="" class="">Movies</a></li>
+                <router-link to="/my-movies">
+                    <li><a href="" class="">My movies</a></li>
+                </router-link>
                 <li><a href="" class="">Actors</a></li>
                 <li><a href="" class="bg-white text-neutral-800 font-bold px-2 py-1 rounded-4xl">About</a></li>
             </ul>
