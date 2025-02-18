@@ -11,7 +11,7 @@ const api = axios.create({ // like "const options" here
         accept: 'application/json',
         Authorization: `Bearer ${import.meta.env.VITE_TMDB_BEARER_TOKEN}`
     },
-    params: { language: 'US' }
+    params: { language: 'en' }
 })
 
 // Fetch popular movies list

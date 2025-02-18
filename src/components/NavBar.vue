@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 
-const { t, locale } = useI18n()
+const { locale } = useI18n({ useScope: 'global' })
+const { t } = useI18n()
+
 
 const switchLanguage = () => {
     locale.value = locale.value === "en" ? "fr" : "en"
@@ -27,8 +29,10 @@ const switchLanguage = () => {
                     <li><a href="" class="">{{ t("actors" )}}</a></li>
                     <li><a href="" class="bg-white text-neutral-800 font-bold px-2 py-1 rounded-4xl">{{ t("about") }}</a></li>
                 </ul>
-                <button class="rounded-xl border p-2 text-base font-bold" @click="switchLanguage">{{ locale === "en" ?
-                    "🇬🇧" : "🇫🇷" }}</button>
+                <button 
+                    class="rounded-xl border p-2 text-base font-bold" 
+                    @click="switchLanguage">{{ locale === "en" ? "🇬🇧" : "🇫🇷" }}
+                </button>
             </div>
         </nav>
     </header>
