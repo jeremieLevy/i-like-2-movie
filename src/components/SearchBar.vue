@@ -52,8 +52,8 @@ const { data, isLoading: isLoadingResults, error: errorResults } = useQuery({
                         </li>
                     </ul>
                 </div>
-                <div v-else-if="debouncedQuery && !isLoadingResults" class="text-center mt-2 text-gray-100">
-                    Sorry, there's no movie
+                <div v-else-if="debouncedQuery && !isLoadingResults || errorResults" class="text-center mt-2 text-gray-100">
+                    Sorry, there's no movie matching with "<span class="font-bold">{{ debouncedQuery }}</span>"
                 </div>
             </div>
 
