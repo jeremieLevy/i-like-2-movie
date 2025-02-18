@@ -31,7 +31,7 @@ const { data, isLoading: isLoadingResults, error: errorResults } = useQuery({
             <div class="relative w-160">
                 <input 
                 v-model="searchQuery" type="text" placeholder="Search movie"
-                    class="w-full border font-bold text-2xl rounded-4xl p-4 placeholder: text-center">
+                    class="w-full border border-purple-200 font-bold text-2xl rounded-4xl p-4 placeholder: text-center">
 
                 <div 
                 v-if="searchResults?.length"

@@ -53,12 +53,13 @@ const { data: credits, isLoading: isLoadingCredits, error: errorCredits } = useQ
                     <router-link :to="{ name: 'actor-details', params: { id: actor.id }}">
                          <li>
                             <img 
-                            class="w-15 h-15 rounded-full object-cover mx-2 brightness-90 hover:brightness-110" 
+                            class="lg:w-15 lg:h-15 h-10 w-10 rounded-full object-cover mx-2 brightness-90 hover:brightness-110" 
                             :src="`https://image.tmdb.org/t/p/w500${actor.profile_path}`" 
                             :alt="`${actor.name}`">
                         </li>
                     </router-link>
                 </ul>
+                <p class="mt-5">Release date : <span class="font-bold text-purple">{{ movie.release_date }}</span></p>
             </div>
             <div v-else>❌ 🗒️ No credits found</div>
         </div>
