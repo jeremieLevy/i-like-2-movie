@@ -2,11 +2,13 @@
 import AddToFavButton from "./AddToFavButton.vue"
 
 defineProps<{
-    id: number,
-    poster: string,
-    title: string,
-    overview: string,
-    rateLevel: number
+    movie: {
+        id: number,
+        title: string,
+        poster_path?: string,
+        release_date: string,
+        vote_average: number
+    }
 }>()
 
 </script>
@@ -14,19 +16,15 @@ defineProps<{
 <template>
 
     <div class="relative h-full rounded-2xl overflow-hidden shadow-[0_5px_20px_rgba(0,0,0,0.25)] shadow-indigo-500/50">
-        <img :src="`https://image.tmdb.org/t/p/w500${poster}`" :alt="title">
+        <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" :alt="movie.title">
         <div class="px-6 py-4">
             <div class="font-bold leading-none mb-2">
-                <h3>{{ title }}</h3>
+                <h3>{{ movie.title }}</h3>
             </div>
             <!-- <p class="text-gray text-md text-justify line-clamp-5  ">{{ props.overview }}</p> -->
         </div>
         <AddToFavButton 
-            :id="id"
-            :poster="poster"
-            :title="title"
-            :overview="overview"
-            :rateLevel="rateLevel" 
+            :movie="movie"
             class="absolute top-1 right-0.5" />
     </div>
 

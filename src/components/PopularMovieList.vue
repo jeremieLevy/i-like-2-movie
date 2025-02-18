@@ -30,11 +30,7 @@ defineProps<{
                 :to="{ name: 'movie-details', params: { id: movie.id }}"
                 class="cursor-pointer transform transition duration-200 hover:scale-105">
                 <MovieCard 
-                    :id="movie.id"
-                    :poster="movie.poster_path" 
-                    :title="movie.title" 
-                    :overview="movie.overview"
-                    :rate-level="movie.vote_average" 
+                    :movie="movie"
                 />
             </router-link>
         </div>

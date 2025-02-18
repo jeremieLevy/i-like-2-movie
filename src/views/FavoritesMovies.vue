@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { useFavorites } from "../store/favorites";
+import { useFavorites } from "../store/favorites"
 
 const favoritesStore = useFavorites()
-console.log(favoritesStore.favorites);
+console.log(favoritesStore.favorites)
+
+
 
 
 </script>
@@ -26,7 +28,7 @@ console.log(favoritesStore.favorites);
             </ul>
         </div>
         <div v-else>
-         <p>You have not added any favorite yet</p>
+            <p>You have not added any favorite yet</p>
         </div>
     </div>
 </template>
