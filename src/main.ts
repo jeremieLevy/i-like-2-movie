@@ -16,7 +16,9 @@ import './style.css'
 const app = createApp(App)
 const pinia = createPinia()
 const i18n = createI18n({
-
+    legacy: false,
+    locale: "en", 
+    fallbackLocale: "fr",
 })
 
 
