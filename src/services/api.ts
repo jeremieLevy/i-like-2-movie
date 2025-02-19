@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 import type { Movie } from '../types/response/tmdb-api/PopularMovies.type'
 import type { MovieDetails } from '../types/response/tmdb-api/MovieDetails.type'
 import type { Actor } from '../types/response/tmdb-api/Actor.type'
@@ -11,7 +12,7 @@ const api = axios.create({ // like "const options" here
         accept: 'application/json',
         Authorization: `Bearer ${import.meta.env.VITE_TMDB_BEARER_TOKEN}`
     },
-    params: { language: 'US' }
+    params: { language: 'en' }
 })
 
 // Fetch popular movies list
@@ -23,8 +24,9 @@ export const getPopularMovies = async (): Promise<Movie[]> => {
 
 // Fetch movie details
 
-export const getMovieDetails = async (id: string): Promise<MovieDetails> => {
-    const response = await api.get(`/movie/${id}`)
+export const getMovieDetails = async (id: string, locale: string): Promise<MovieDetails> => {
+
+    const response = await api.get(`/movie/${id}`, { params: { language: locale }})
     return response.data 
 }
 
