@@ -12,14 +12,14 @@ import PopularMovieList from "../components/PopularMovieList.vue";
 
 const route = useRoute()
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 const movieId = computed(() => route.params.id as string)
 // ligne au dessus équivalent à : const movieUrl = `https://api.themoviedb.org/3/movie/${route.params.id}&language=en-US`
 
 const { data: movie, isLoading: isLoadingMovie, error: errorMovie } = useQuery({
-    queryKey: ['movie', movieId],
-    queryFn: () => getMovieDetails(movieId.value),
+    queryKey: ['movie', movieId, locale],
+    queryFn: () => getMovieDetails(movieId.value, locale.value),
     staleTime: 60_000,
     gcTime: 100_000
 })
@@ -66,7 +66,7 @@ const { data: credits, isLoading: isLoadingCredits, error: errorCredits } = useQ
         </div>
     </div>
     <div v-else>❌ 🎥 {{ t("no_movies_found") }}</div>
-    <PopularMovieList label="Similar movies" class="mt-10"/>
+    <PopularMovieList :label="t('similar_movies')" class="mt-10"/>
 
 </template>
 
