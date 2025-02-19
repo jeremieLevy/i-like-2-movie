@@ -4,11 +4,12 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useQuery } from '@tanstack/vue-query'
 import { useI18n } from 'vue-i18n'
+import { DateTime } from 'luxon'
 
 import { getMovieDetails } from '../services/api'
 import { getMovieCredits } from '../services/api'
 
-import PopularMovieList from "../components/PopularMovieList.vue";
+import PopularMovieList from "../components/PopularMovieList.vue"
 
 const route = useRoute()
 
@@ -17,12 +18,24 @@ const { t, locale } = useI18n()
 const movieId = computed(() => route.params.id as string)
 // ligne au dessus équivalent à : const movieUrl = `https://api.themoviedb.org/3/movie/${route.params.id}&language=en-US`
 
+
 const { data: movie, isLoading: isLoadingMovie, error: errorMovie } = useQuery({
     queryKey: ['movie', movieId, locale],
     queryFn: () => getMovieDetails(movieId.value, locale.value),
     staleTime: 60_000,
     gcTime: 100_000
 })
+
+const formattedDate = computed(() => {
+  if (!movie.value?.release_date) return "Date inconnue" 
+
+  return DateTime.fromISO(movie.value.release_date) 
+    .setLocale(locale.value) 
+    .toLocaleString(DateTime.DATE_SHORT)
+})
+
+// console.log(DateTime.now().setLocale(locale.value).toFormat("dd-MM-yyyy").toLocaleString());
+
 
 const { data: credits, isLoading: isLoadingCredits, error: errorCredits } = useQuery({
     queryKey: ['credits', movieId],
@@ -45,7 +58,7 @@ const { data: credits, isLoading: isLoadingCredits, error: errorCredits } = useQ
             </div>
             <hr class="my-3">
             <h3 class="font-bold text-purple-300">Synopsis</h3>
-            <p class="text-justify mt-3">{{ movie.overview }}</p>
+            <p class="text-justify mt-3 text-sm/4 md:text-base/5 lg:text-base/6 ">{{ movie.overview }}</p>
             <h3 class="font-bold mt-8 texit-purple-300">Casting</h3>
             <div v-if="errorCredits" class="mt-3 text-red">{{ t("error") }} 😬</div>
             <div v-else-if="isLoadingCredits">{{ t("loading") }}...</div>
@@ -60,7 +73,7 @@ const { data: credits, isLoading: isLoadingCredits, error: errorCredits } = useQ
                         </li>
                     </router-link>
                 </ul>
-                <p class="mt-5">{{ t("release_date") }} : <span class="font-bold text-purple">{{ movie.release_date }}</span></p>
+                <p class="mt-3">{{ t("release_date") }} : <span class="font-bold text-purple">{{ formattedDate }}</span></p>
             </div>
             <div v-else>❌ 🗒️ {{ t("no_credits_found") }}</div>
         </div>
