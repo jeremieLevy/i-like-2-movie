@@ -18,7 +18,7 @@ const { data, isLoading: isLoadingResults, error: errorResults } = useQuery({
 </script>
 
 <template>
-    <div class="relative h-150 text-white mt-10">
+    <div class="relative h-150 text-white">
         <div class="absolute inset-0">
             <img 
             src="/src/assets/Interstellar.jpg" alt="Background Image"
@@ -35,7 +35,7 @@ const { data, isLoading: isLoadingResults, error: errorResults } = useQuery({
 
                 <div 
                 v-if="searchResults?.length"
-                    class="absolute left-0 w-full mt-2 bg-gray-800 text-black shadow-xl rounded-2xl max-h-120 overflow-y-auto">
+                    class="absolute left-0 w-full mt-2 bg-gray-800/50 backdrop-blur-2xl text-black shadow-xl rounded-2xl max-h-120 overflow-y-auto">
                     <ul>
                         <li 
                         v-for="result in searchResults" :key="result.id"
@@ -45,7 +45,7 @@ const { data, isLoading: isLoadingResults, error: errorResults } = useQuery({
                                     <img 
                                     :src="`https://image.tmdb.org/t/p/w200${result.poster_path}`"
                                     :alt="result.title" class="w-20 rounded-2xl object-cover">
-                                    <h2 class="text-xl font-bold ml-10">{{ result.title }} <span class="font-normal">({{
+                                    <h2 class="text-xl text-white font-bold ml-10">{{ result.title }} <span class="font-normal">({{
                                             result.release_date.split('-')[0] }})</span></h2>
                                 </div>
                             </router-link>

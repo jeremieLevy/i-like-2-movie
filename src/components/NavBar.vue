@@ -13,21 +13,21 @@ const switchLanguage = () => {
 
 <template>
 
-    <header class="bg-neutral-800 fixed top-0 z-50 border-b-1 w-full">
-        <nav class="container mx-auto flex justify-between items-center p-6 mb-2">
+    <header class="flex justify-center">
+        <nav class="bg-neutral-700/50 backdrop-blur-md shadow-md fixed top-7 rounded-2xl z-50 flex lg:space-x-52 md:space-x-20 items-center px-15 py-5">
             <router-link :to="{ name: 'home' }">
-                <span class="relative text-4xl">I like to <span class="font-bold">m🎥vie</span>
-                    <span class="absolute text-sm text-purple-200 right-0.5 top-9">(movie)</span>
+                <span class="relative text-3xl bottom-2">I like to <span class="font-bold">m🎥vie</span>
+                    <span class="absolute text-sm text-purple-200 right-0.5 top-7">(movie)</span>
                 </span>
             </router-link>
             <div class="flex justify-between items-center space-x-12">
-                <ul class="flex justify-center space-x-6 font-bold">
-                    <li><a href="" class="">{{ t("trending") }}</a></li>
+                <ul class="flex justify-center space-x-6 font-semibold">
+                    <li><a href="" class="hover:text-white">{{ t("trending") }}</a></li>
                     <router-link :to="{ name: 'favorites-movies' }">
-                        <li><a href="" class="">{{ t("my_movies" )}}</a></li>
+                        <li><a href="" class="hover:text-white">{{ t("my_movies" )}}</a></li>
                     </router-link>
-                    <li><a href="" class="">{{ t("actors" )}}</a></li>
-                    <li><a href="" class="bg-white text-neutral-800 font-bold px-2 py-1 rounded-4xl">{{ t("about") }}</a></li>
+                    <li><a href="" class="hover:text-white">{{ t("actors" )}}</a></li>
+                    <li><a href="" class="bg-white text-neutral-800 font-bold px-2 py-1 rounded-4xl hover:bg-purple-500 hover:text-white">{{ t("about") }}</a></li>
                 </ul>
                 <button 
                     class="rounded-xl border p-2 text-base font-bold" 

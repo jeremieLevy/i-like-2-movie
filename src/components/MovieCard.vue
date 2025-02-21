@@ -15,7 +15,7 @@ defineProps<{
 
 <template>
 
-    <div class="relative h-full rounded-2xl overflow-hidden shadow-[0_5px_20px_rgba(0,0,0,0.25)] shadow-indigo-500/50">
+    <div class="relative lg:h-full md:h-full h-20 rounded-2xl overflow-hidden">
         <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" :alt="movie.title">
         <div class="px-6 py-4">
             <div class="font-bold leading-none mb-2">

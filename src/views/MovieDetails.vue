@@ -50,7 +50,7 @@ const { data: credits, isLoading: isLoadingCredits, error: errorCredits } = useQ
 
     <div v-if="errorMovie" class="mt-3 text-red">{{ t("error") }} 😬</div>
     <div v-else-if="isLoadingMovie">{{ t("loading") }}...</div>
-    <div v-else-if="movie" class="container mx-auto flex mt-30">
+    <div v-else-if="movie" class="container mx-auto flex mt-40">
         <img :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`" :alt="`${movie.original_title}`" class="w-72 h-full rounded-2xl">
         <div class="flex flex-col px-8">
             <div class="flex items-start">
