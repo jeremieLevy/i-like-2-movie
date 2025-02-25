@@ -21,7 +21,7 @@ const movieId = computed(() => route.params.id as string)
 
 const { data: movie, isLoading: isLoadingMovie, error: errorMovie } = useQuery({
     queryKey: ['movie', movieId, locale],
-    queryFn: () => getMovieDetails(movieId.value, locale.value),
+    queryFn: () => getMovieDetails(movieId.value),
     staleTime: 60_000,
     gcTime: 100_000
 })

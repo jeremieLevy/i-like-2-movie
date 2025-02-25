@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { i18n } from '../plugins/i18n'
 
 import type { Movie } from '../types/response/tmdb-api/PopularMovies.type'
 import type { MovieDetails } from '../types/response/tmdb-api/MovieDetails.type'
@@ -11,8 +12,17 @@ const api = axios.create({ // like "const options" here
     headers: {
         accept: 'application/json',
         Authorization: `Bearer ${import.meta.env.VITE_TMDB_BEARER_TOKEN}`
-    },
-    params: { language: 'en' }
+    }
+})
+
+api.interceptors.request.use(config => {
+    const locale = i18n.global.locale.value 
+    config.params = { 
+        ...config.params, 
+        language: locale,
+        include_adult: false 
+    }
+    return config
 })
 
 // Fetch popular movies list
@@ -24,9 +34,9 @@ export const getPopularMovies = async (): Promise<Movie[]> => {
 
 // Fetch movie details
 
-export const getMovieDetails = async (id: string, locale: string): Promise<MovieDetails> => {
+export const getMovieDetails = async (id: string): Promise<MovieDetails> => {
 
-    const response = await api.get(`/movie/${id}`, { params: { language: locale }})
+    const response = await api.get(`/movie/${id}`)
     return response.data 
 }
 
