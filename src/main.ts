@@ -6,7 +6,7 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 import { VueQueryPlugin } from '@tanstack/vue-query'
 
-import { createI18n } from 'vue-i18n'
+import { i18n } from './plugins/i18n'
 
 import router from './router'
 
@@ -15,12 +15,6 @@ import './style.css'
 
 const app = createApp(App)
 const pinia = createPinia()
-const i18n = createI18n({
-    legacy: false,
-    locale: "en", 
-    fallbackLocale: "fr",
-})
-
 
 app.use(pinia)
 pinia.use(piniaPluginPersistedstate)
